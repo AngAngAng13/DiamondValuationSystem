@@ -25,7 +25,7 @@ function PrivateRoute() {
       notifyWarning("You are not authorized to view this page");
       setNotified(true);
     }
-  }, [loading, currentUser, isAdmin, notified, notifyWarning, setNotified]);
+  }, [loading, currentUser, isAdmin, notified, notifyWarning, setNotified]);// this thing is triggering the warning two times
 
   if (loading) {
     return <div>Loading...</div>; // or a spinner

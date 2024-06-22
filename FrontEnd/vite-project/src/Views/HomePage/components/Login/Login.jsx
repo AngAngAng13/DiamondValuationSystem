@@ -31,19 +31,27 @@ function Login() {
       if (currentState === "Sign In") {
         await signIn(emailRef.current.value, passwordRef.current.value);
         setLoading(true);
+        notifySuccess("Successfully logged in");
         
       } else if (currentState === "Sign Up") {
         await signUp(emailRef.current.value, passwordRef.current.value);
         setLoading(true);
         handleClose();
+        notifySuccess("Successfully signed up");
       } else {
         setError("Error: Something went wrong");
       }
     } catch (error) {
       setError(error.message);
+      if (currentState === "Sign Up") {
+        notifyError("Error signing up");
+      }
+      if (currentState === "Sign In") {
+        notifyError("Error signing in");
+      }
     } finally {
       setLoading(false);
-      notifySuccess("Successfully logged in");
+
     }
   };
 
