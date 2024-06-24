@@ -96,7 +96,6 @@ function Login() {
       await signOutUser();
       setCurrentState("Sign In");
       notifySuccess("Susscessfully sign out")
-
     } catch (error) {
       setError(error.message);
       notifyError("Error signing out");
