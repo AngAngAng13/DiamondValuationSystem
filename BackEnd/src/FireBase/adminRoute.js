@@ -119,7 +119,7 @@ adminRouter.post("/users", async (req, res) => {
     res.json(user);
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(400).send(error);
   }
 });
 
