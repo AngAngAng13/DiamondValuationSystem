@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNotify } from "../Provider/NotifyProvider";
@@ -8,7 +8,7 @@ function PrivateRoute() {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const location = useLocation();
   useEffect(() => {
     if (currentUser) {
       currentUser.getIdTokenResult().then((idTokenResult) => {
@@ -21,11 +21,14 @@ function PrivateRoute() {
   }, [currentUser]);
 
   useEffect(() => {
-    if (!loading && (!currentUser || !isAdmin) && !notified) {
-      notifyWarning("You are not authorized to view this page");
-      setNotified(true);
+    if (!loading && (!currentUser || !isAdmin) && !notified && location.pathname !== "/") {
+    
+        notifyWarning("You are not authorized to view this page");
+        setNotified(true);
+      
+      
     }
-  }, [loading, currentUser, isAdmin, notified, notifyWarning, setNotified]);// this thing is triggering the warning two times
+  }, [loading, currentUser, isAdmin, notified, notifyWarning, setNotified, location]);
 
   if (loading) {
     return <div>Loading...</div>; // or a spinner
