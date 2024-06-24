@@ -13,16 +13,18 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import { useAuth } from "../../../../Context/AuthContext"; 
 import { useNotify } from "../../../../Provider/NotifyProvider";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { notifySuccess} = useNotify();
   const { signOutUser } = useAuth(); 
-
+  const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
       await signOutUser();
       notifySuccess("Successfully logged out");
+      navigate("/");
     } catch (error) {
       console.error("Error signing out:", error);
     }
