@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Assuming you're using react-r
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth } from "../../../../Context/AuthContext";
 import { useNotify } from "../../../../Provider/NotifyProvider";
@@ -37,21 +37,42 @@ function Login() {
         await signUp(emailRef.current.value, passwordRef.current.value);
         setLoading(true);
         handleClose();
-        notifySuccess("Successfully signed up");
+        notifySuccess("Successfully logged in");
       } else {
-        setError("Error: Something went wrong");
+        notifyError("Error: Something went wrong");
       }
     } catch (error) {
-      setError(error.message);
-      if (currentState === "Sign Up") {
-        notifyError("Error signing up");
+      if (error.code === "auth/wrong-password") {
+        notifyError("Invalid password");
       }
-      if (currentState === "Sign In") {
-        notifyError("Error signing in");
+      if (error.code === "auth/user-not-found") {
+        notifyError("User not found");
+      }
+      if (error.code === "auth/email-already-in-use") {
+        notifyError("Email already in use");
+      }
+      if (error.code === "auth/weak-password") {
+        notifyError("Password is too weak");
+      }
+      if (error.code === "auth/invalid-email") {
+        notifyError("Invalid email");
+      }
+      if (error.code === "auth/too-many-requests") {
+        notifyError("Too many requests. Try again later");
+      }
+      if (error.code === "auth/user-disabled") {
+        notifyError("User account is disabled");
+      }
+      if (error.code === "auth/invalid-credential") {
+        notifyError("Wrong email or password or account does not exist");
+      }
+      else {
+        notifyError(error.message);
       }
     } finally {
       setLoading(false);
-
+      
+      
     }
   };
 
@@ -74,6 +95,7 @@ function Login() {
     try {
       await signOutUser();
       setCurrentState("Sign In");
+      notifySuccess("Susscessfully sign out")
 
     } catch (error) {
       setError(error.message);
@@ -193,12 +215,7 @@ function Login() {
             </div>
           </Modal.Body>
           <Modal.Footer className="d-flex align-content-center justify-content-center">
-            {error && (
-              <Alert variant="danger" onClose={() => setError("")} dismissible>
-                <Alert.Heading>Error</Alert.Heading>
-                <p>{error}</p>
-              </Alert>
-            )}
+
             <div
               style={{
                 display: "flex",
