@@ -37,7 +37,7 @@ function Login() {
         await signUp(emailRef.current.value, passwordRef.current.value);
         setLoading(true);
         handleClose();
-        notifySuccess("Successfully logged in");
+        notifySuccess("Successfully Singed Up");
       } else {
         notifyError("Error: Something went wrong");
       }
@@ -65,9 +65,6 @@ function Login() {
       }
       if (error.code === "auth/invalid-credential") {
         notifyError("Wrong email or password or account does not exist");
-      }
-      else {
-        notifyError(error.message);
       }
     } finally {
       setLoading(false);
