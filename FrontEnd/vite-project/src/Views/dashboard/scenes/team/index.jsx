@@ -75,7 +75,7 @@ const Team = () => {
       notifySuccess("User updated successfully!", { toastId: "update-user-success" });
       handleCloseUpdateModal();
     } catch (error) {
-      notifyError("Error updating user.", { toastId: "update-user-error" });
+      notifyError("Error updating user.");
       console.error("Error updating user:", error);
     }
   };

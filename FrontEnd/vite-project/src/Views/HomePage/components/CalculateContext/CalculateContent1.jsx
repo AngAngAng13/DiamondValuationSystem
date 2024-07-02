@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import styled from "styled-components";
 import DemoPage from "../DemoPage";
 import Navbar from "../../components/Navbar/Navbar";
+
 const StyledButton = styled.button.attrs((props) => ({
   active: props.active ? "true" : undefined,
 }))`
@@ -9,8 +10,7 @@ const StyledButton = styled.button.attrs((props) => ({
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: ${({ active }) =>
-    active === "true" ? "green" : "#f9f9f9"};
+  background-color: ${({ active }) => (active === "true" ? "green" : "#f9f9f9")};
   cursor: pointer;
   transition: background-color 0.3s;
 `;
@@ -22,8 +22,7 @@ const StyledWideButton = styled.button.attrs((props) => ({
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: ${({ active }) =>
-    active === "true" ? "green" : "#f9f9f9"};
+  background-color: ${({ active }) => (active === "true" ? "green" : "#f9f9f9")};
   cursor: pointer;
   transition: background-color 0.3s;
 
@@ -71,22 +70,25 @@ function CalculateContent() {
   };
 
   const [selectedOrigin, setSelectedOrigin] = useState("NATURAL");
-  const [selectedShape, setSelectedShape] = useState(null);
+  const [selectedCut, setselectedCut] = useState(null);
   const [selectedClarity, setSelectedClarity] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [carat, setCarat] = useState(0.3);
+  const [selectedMake, setSelectedMake] = useState(null);
+  const [selectedCert, setSelectedCert] = useState(null);
 
   const handleOriginButtonClick = (origin) => {
     setSelectedOrigin(origin);
   };
 
   const handleShapeButtonClick = (shape) => {
-    setSelectedShape(shape);
+    setselectedCut(shape);
   };
 
   const handleClarityButtonClick = (clarity) => {
     setSelectedClarity(clarity);
   };
+
   const handleColorButtonClick = (color) => {
     setSelectedColor(color);
   };
@@ -95,12 +97,22 @@ function CalculateContent() {
     setCarat(e.target.value);
   };
 
+  const handleMakeButtonClick = (make) => {
+    setSelectedMake(make);
+  };
+
+  const handleCertButtonClick = (cert) => {
+    setSelectedCert(cert);
+  };
+
   const contextValue = {
     selectedOrigin,
-    selectedShape,
+    selectedCut,
     selectedClarity,
     selectedColor,
     carat,
+    selectedMake,
+    selectedCert,
   };
 
   return (
@@ -113,109 +125,67 @@ function CalculateContent() {
             <h3>DIAMOND ORIGIN</h3>
             <div style={buttonContainerStyle2}>
               <div>
-                <button
-                  className={`btn${
-                    selectedOrigin === "NATURAL" ? " active" : ""
-                  }`}
-                  style={{ width: "100%" }}
-                  onClick={() => handleOriginButtonClick("NATURAL")}
-                >
+                <button className={`btn${selectedOrigin === "NATURAL" ? " active" : ""}`} style={{ width: "100%" }} onClick={() => handleOriginButtonClick("NATURAL")}>
                   NATURAL
                 </button>
               </div>
               <div>
-                <button
-                  className={`btn${
-                    selectedOrigin === "LAB GROWN" ? " active" : ""
-                  }`}
-                  onClick={() => handleOriginButtonClick("LAB GROWN")}
-                  style={{ width: "100%" }}
-                >
+                <button className={`btn${selectedOrigin === "LAB GROWN" ? " active" : ""}`} onClick={() => handleOriginButtonClick("LAB GROWN")} style={{ width: "100%" }}>
                   LAB GROWN
                 </button>
               </div>
             </div>
           </div>
           <div style={sectionStyle}>
-            <h3>SHAPE</h3>
+            <h3>CUT</h3>
             <div style={buttonContainerStyle}>
               <div>
-                <StyledButton
-                  active={selectedShape === "ROUND"}
-                  onClick={() => handleShapeButtonClick("ROUND")}
-                >
+                <StyledButton active={selectedCut === "ROUND"} onClick={() => handleShapeButtonClick("ROUND")}>
                   ROUND
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "CUSHION"}
-                  onClick={() => handleShapeButtonClick("CUSHION")}
-                >
+                <StyledButton active={selectedCut === "CUSHION"} onClick={() => handleShapeButtonClick("CUSHION")}>
                   CUSHION
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "EMERALD"}
-                  onClick={() => handleShapeButtonClick("EMERALD")}
-                >
+                <StyledButton active={selectedCut === "EMERALD"} onClick={() => handleShapeButtonClick("EMERALD")}>
                   EMERALD
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "OVAL"}
-                  onClick={() => handleShapeButtonClick("OVAL")}
-                >
+                <StyledButton active={selectedCut === "OVAL"} onClick={() => handleShapeButtonClick("OVAL")}>
                   OVAL
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "PRINCESS"}
-                  onClick={() => handleShapeButtonClick("PRINCESS")}
-                >
+                <StyledButton active={selectedCut === "PRINCESS"} onClick={() => handleShapeButtonClick("PRINCESS")}>
                   PRINCESS
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "PEAR"}
-                  onClick={() => handleShapeButtonClick("PEAR")}
-                >
+                <StyledButton active={selectedCut === "PEAR"} onClick={() => handleShapeButtonClick("PEAR")}>
                   PEAR
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "RADIANT"}
-                  onClick={() => handleShapeButtonClick("RADIANT")}
-                >
+                <StyledButton active={selectedCut === "RADIANT"} onClick={() => handleShapeButtonClick("RADIANT")}>
                   RADIANT
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "MARQUISE"}
-                  onClick={() => handleShapeButtonClick("MARQUISE")}
-                >
+                <StyledButton active={selectedCut === "MARQUISE"} onClick={() => handleShapeButtonClick("MARQUISE")}>
                   MARQUISE
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "ASSCHER"}
-                  onClick={() => handleShapeButtonClick("ASSCHER")}
-                >
+                <StyledButton active={selectedCut === "ASSCHER"} onClick={() => handleShapeButtonClick("ASSCHER")}>
                   ASSCHER
                 </StyledButton>
               </div>
               <div>
-                <StyledButton
-                  active={selectedShape === "HEART"}
-                  onClick={() => handleShapeButtonClick("HEART")}
-                >
+                <StyledButton active={selectedCut === "HEART"} onClick={() => handleShapeButtonClick("HEART")}>
                   HEART
                 </StyledButton>
               </div>
@@ -252,66 +222,42 @@ function CalculateContent() {
             <h2>COLOR</h2>
             <div style={buttonContainerStyle1}>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "K"}
-                  onClick={() => handleColorButtonClick("K")}
-                >
+                <StyledWideButton active={selectedColor === "K"} onClick={() => handleColorButtonClick("K")}>
                   K
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "J"}
-                  onClick={() => handleColorButtonClick("J")}
-                >
+                <StyledWideButton active={selectedColor === "J"} onClick={() => handleColorButtonClick("J")}>
                   J
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "I"}
-                  onClick={() => handleColorButtonClick("I")}
-                >
+                <StyledWideButton active={selectedColor === "I"} onClick={() => handleColorButtonClick("I")}>
                   I
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "H"}
-                  onClick={() => handleColorButtonClick("H")}
-                >
+                <StyledWideButton active={selectedColor === "H"} onClick={() => handleColorButtonClick("H")}>
                   H
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "G"}
-                  onClick={() => handleColorButtonClick("G")}
-                >
+                <StyledWideButton active={selectedColor === "G"} onClick={() => handleColorButtonClick("G")}>
                   G
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "F"}
-                  onClick={() => handleColorButtonClick("F")}
-                >
+                <StyledWideButton active={selectedColor === "F"} onClick={() => handleColorButtonClick("F")}>
                   F
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "E"}
-                  onClick={() => handleColorButtonClick("E")}
-                >
+                <StyledWideButton active={selectedColor === "E"} onClick={() => handleColorButtonClick("E")}>
                   E
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedColor === "D"}
-                  onClick={() => handleColorButtonClick("D")}
-                >
+                <StyledWideButton active={selectedColor === "D"} onClick={() => handleColorButtonClick("D")}>
                   D
                 </StyledWideButton>
               </div>
@@ -321,67 +267,143 @@ function CalculateContent() {
             <h2>CLARITY</h2>
             <div style={buttonContainerStyle1}>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "SI2"}
-                  onClick={() => handleClarityButtonClick("SI2")}
-                >
+                <StyledWideButton active={selectedClarity === "SI2"} onClick={() => handleClarityButtonClick("SI2")}>
                   SI2
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "SI3"}
-                  onClick={() => handleClarityButtonClick("SI3")}
-                >
+                <StyledWideButton active={selectedClarity === "SI3"} onClick={() => handleClarityButtonClick("SI3")}>
                   SI3
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "VS2"}
-                  onClick={() => handleClarityButtonClick("VS2")}
-                >
+                <StyledWideButton active={selectedClarity === "VS2"} onClick={() => handleClarityButtonClick("VS2")}>
                   VS2
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "VS1"}
-                  onClick={() => handleClarityButtonClick("VS1")}
-                >
+                <StyledWideButton active={selectedClarity === "VS1"} onClick={() => handleClarityButtonClick("VS1")}>
                   VS1
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "VVS2"}
-                  onClick={() => handleClarityButtonClick("VVS2")}
-                >
+                <StyledWideButton active={selectedClarity === "VVS2"} onClick={() => handleClarityButtonClick("VVS2")}>
                   VVS2
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "VVS1"}
-                  onClick={() => handleClarityButtonClick("VVS1")}
-                >
+                <StyledWideButton active={selectedClarity === "VVS1"} onClick={() => handleClarityButtonClick("VVS1")}>
                   VVS1
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "IF"}
-                  onClick={() => handleClarityButtonClick("IF")}
-                >
+                <StyledWideButton active={selectedClarity === "IF"} onClick={() => handleClarityButtonClick("IF")}>
                   IF
                 </StyledWideButton>
               </div>
               <div>
-                <StyledWideButton
-                  active={selectedClarity === "FL"}
-                  onClick={() => handleClarityButtonClick("FL")}
-                >
+                <StyledWideButton active={selectedClarity === "FL"} onClick={() => handleClarityButtonClick("FL")}>
                   FL
+                </StyledWideButton>
+              </div>
+            </div>
+          </div>
+          <div style={sectionStyle}>
+            <h2>MAKE</h2>
+            <div style={buttonContainerStyle1}>
+              <div>
+                <StyledWideButton active={selectedMake === "IDEAL"} onClick={() => handleMakeButtonClick("IDEAL")}>
+                  IDEAL
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedMake === "EXCELLENT"} onClick={() => handleMakeButtonClick("EXCELLENT")}>
+                  EXCELLENT
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedMake === "VERY GOOD"} onClick={() => handleMakeButtonClick("VERY GOOD")}>
+                  VERY GOOD
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedMake === "GOOD"} onClick={() => handleMakeButtonClick("GOOD")}>
+                  GOOD
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedMake === "FAIR"} onClick={() => handleMakeButtonClick("FAIR")}>
+                  FAIR
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedMake === "POOR"} onClick={() => handleMakeButtonClick("POOR")}>
+                  POOR
+                </StyledWideButton>
+              </div>
+            </div>
+          </div>
+          <div style={sectionStyle}>
+            <h2>CERTIFICATE / CERT</h2>
+            <div style={buttonContainerStyle}>
+              <div>
+                <StyledWideButton active={selectedCert === "AGS"} onClick={() => handleCertButtonClick("AGS")}>
+                  AGS
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "CEGL"} onClick={() => handleCertButtonClick("CEGL")}>
+                  CEGL
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "CGI"} onClick={() => handleCertButtonClick("CGI")}>
+                  CGI
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "CGL"} onClick={() => handleCertButtonClick("CGL")}>
+                  CGL
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "DCLA"} onClick={() => handleCertButtonClick("DCLA")}>
+                  DCLA
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "EGL Asia"} onClick={() => handleCertButtonClick("EGL Asia")}>
+                  EGL Asia
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "EGL Intl."} onClick={() => handleCertButtonClick("EGL Intl.")}>
+                  EGL Intl.
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "EGL USA"} onClick={() => handleCertButtonClick("EGL USA")}>
+                  EGL USA
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "GCAL"} onClick={() => handleCertButtonClick("GCAL")}>
+                  GCAL
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "GIA"} onClick={() => handleCertButtonClick("GIA")}>
+                  GIA
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "HRD"} onClick={() => handleCertButtonClick("HRD")}>
+                  HRD
+                </StyledWideButton>
+              </div>
+              <div>
+                <StyledWideButton active={selectedCert === "IGI"} onClick={() => handleCertButtonClick("IGI")}>
+                  IGI
                 </StyledWideButton>
               </div>
             </div>
